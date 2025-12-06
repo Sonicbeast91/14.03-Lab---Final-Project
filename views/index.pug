@@ -1,23 +1,63 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  ol
-  each val in todos
-    li
-      span= val.task + ' - '
-      if val.completed > 0
-        span Completed
-      else
-        pan Not Completed
-      form(method='POST' action='/delete')
-        input(type='hidden', name='id', value=val.id)
-        button(type='submit') Delete
+  section.dd-hero
+    div.dd-hero-content
+      p.dd-hero-kicker Handcrafted Daily · Downtown Since 1992
+      h1.dd-hero-title Warm donuts. Strong coffee. Happy neighbors.
+      p.dd-hero-text
+        | Downtown Donuts is a cozy, family-owned shop serving small-batch donuts,
+        | thoughtfully brewed coffee, and a welcoming corner for the downtown community.
+      div.dd-hero-actions
+        a.dd-button(href="/menu") View the Menu
+        a.dd-button.dd-button--ghost(href="#order-online") Order for Pickup & Delivery
+      ul.dd-hero-badges
+        li Fresh every morning
+        li Locally roasted beans
+        li Family owned & operated
 
-  hr
-  h2 Add a new task
-  form(method='POST' action='/create')
-    label(for='task') Task:
-    input(type='text', name='task', id='task', required)
-    button(type='submit') Create Task
+    div.dd-hero-card
+      h2.dd-hero-card-title Today’s Featured Flavors
+      if featuredItems && featuredItems.length
+        ul.dd-featured-list
+          each item in featuredItems
+            li.dd-featured-item
+              span.dd-featured-name= item.name
+              span.dd-featured-meta #{item.category} · $#{Number(item.price).toFixed(2)}
+      else
+        p.dd-muted
+          | Our bakers are still loading in your featured flavors. Check back soon!
+
+  section.dd-section#order-online
+    div.dd-section-header
+      h2 Order Online
+      p.dd-section-subtitle
+        | Craving a maple bar or a latte to go? Get Downtown Donuts delivered or ready for pickup.
+
+    div.dd-order-grid
+      a.dd-order-card(href="https://www.ubereats.com" target="_blank" rel="noopener")
+        h3 UberEats
+        p Order delivery straight to your door.
+        span.dd-order-pill Delivery
+      a.dd-order-card(href="https://www.doordash.com" target="_blank" rel="noopener")
+        h3 DoorDash
+        p Schedule ahead or grab it ASAP.
+        span.dd-order-pill Pickup & Delivery
+      a.dd-order-card(href="/comments")
+        h3 Community Wall
+        p Share your favorite donut memories with us.
+        span.dd-order-pill Community
+
+  section.dd-section.dd-section--split
+    div.dd-section-content
+      h2 A Cozy Corner in Downtown
+      p
+        | From the first batch of donuts in 1992 to your morning coffee run today, Downtown
+        | Donuts has always been about warm smiles, sprinkled sugar, and that “just one more” bite.
+      p
+        | This site is designed to be minimal and modern while keeping that cozy, hand-crafted
+        | feeling alive—just like a fresh donut in a paper bag.
+      a.dd-link(href="/about") Learn more about our story →
+    div.dd-section-visual
+      div.dd-photo-placeholder
+        span Sprinkles of Joy

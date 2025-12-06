@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  section.dd-page-hero
+    h1 Our Menu
+    p.dd-page-hero-subtitle
+      | A rotating cast of donuts, coffee, and seasonal specials. Check in often—our bakers
+      | love to experiment.
+
+  section.dd-section
+    div.dd-section-header
+      h2 Donuts & Coffee
+      p.dd-section-subtitle
+        | Browse by category or simply scroll and let your cravings decide.
+
+    if menuByCategory
+      div.dd-menu-filters(data-js="menu-filters")
+        button.dd-chip.dd-chip--active(type="button" data-filter="all") All Items
+        each catName in Object.keys(menuByCategory)
+          button.dd-chip(type="button" data-filter=catName)= catName
+
+      each items, category in menuByCategory
+        section.dd-menu-section(data-category=category)
+          h3.dd-menu-heading= category
+          div.dd-menu-grid
+            each item in items
+              article.dd-menu-card
+                if item.is_featured
+                  span.dd-menu-pill Featured
+                h4.dd-menu-name= item.name
+                p.dd-menu-description= item.description
+                div.dd-menu-meta
+                  span.dd-menu-price $#{Number(item.price).toFixed(2)}
+                  if category === 'Drinks'
+                    span.dd-menu-tag Hot · Iced · Seasonal
+                p.dd-menu-footnote.dd-muted
+                  | Availability may vary throughout the day.
+    else
+      p.dd-muted
+        | The menu hasn’t been loaded yet. Run the SQL seed script to add items.

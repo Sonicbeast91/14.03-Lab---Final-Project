@@ -1,7 +1,62 @@
 doctype html
-html
+html(lang="en")
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title Downtown Donuts | #{title}
+
+    // Google Fonts: Italianno & Montserrat
+    // Source: Google Fonts (https://fonts.google.com/specimen/Italianno, https://fonts.google.com/specimen/Montserrat)
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin="")
+    link(
+      href="https://fonts.googleapis.com/css2?family=Italianno&family=Montserrat:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    )
+
+    // Main stylesheet
+    link(rel="stylesheet", href="/stylesheets/style.css")
+
   body
-    block content
+    header.dd-header
+      nav.dd-nav
+        a.dd-brand(href="/")
+          span.dd-brand-script Downtown Donuts
+          span.dd-brand-sub Since 1992
+        button.dd-nav-toggle(type="button" aria-label="Toggle navigation")
+          span
+          span
+          span
+        ul.dd-nav-links
+          li: a(href="/") Home
+          li: a(href="/menu") Menu
+          li: a(href="/about") Our Story
+          li: a(href="/comments") Community
+          li.dd-nav-cta
+            a.dd-button.dd-button--small(href="#order-online") Order Online
+
+    main.dd-main
+      block content
+
+    footer.dd-footer
+      section.dd-footer-inner
+        div.dd-footer-column
+          h3 Downtown Donuts
+          p Cozy donuts & coffee in the heart of downtown since 1992.
+          p.dd-footer-hours
+            | Open Daily · 6:00 AM – 3:00 PM
+        div.dd-footer-column
+          h4 Visit Us
+          p 123 Main Street · Downtown · Your City
+          p (555) 123-4567
+          a(href="mailto:jdoe@downtowndonuts.com") jdoe@downtowndonuts.com
+        div.dd-footer-column
+          h4 Stay Connected
+          ul.dd-footer-links
+            li: a(href="/comments") Leave a Comment
+            li: a(href="https://www.ubereats.com" target="_blank" rel="noopener") UberEats
+            li: a(href="https://www.doordash.com" target="_blank" rel="noopener") DoorDash
+      p.dd-footer-meta
+        | Prototype created for CS208 · Design + development by Your Name
+
+    script(src="/javascripts/main.js")

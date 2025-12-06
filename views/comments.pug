@@ -1,0 +1,55 @@
+extends layout
+
+block content
+  section.dd-page-hero
+    h1 Community Wall
+    p.dd-page-hero-subtitle
+      | Leave a note, share your favorite donut, or tell us about your latest coffee-fueled adventure.
+
+  section.dd-section.dd-section--split
+    div.dd-section-content
+      h2 Share Your Experience
+      form.dd-form(method="POST" action="/comments" data-js="comment-form")
+        div.dd-form-row
+          label(for="name") Name
+          input#name(type="text" name="name" required placeholder="Jane Doe")
+        div.dd-form-row
+          label(for="visit_experience") How did you visit?
+          select#visit_experience(name="visit_experience")
+            option(value="Dine-in") Dine-in
+            option(value="Takeout") Takeout
+            option(value="Delivery") Delivery
+        div.dd-form-row
+          label(for="rating") Rating
+          div.dd-rating-group
+            each star in [5,4,3,2,1]
+              label.dd-rating
+                input(
+                  type="radio"
+                  name="rating"
+                  value=star
+                  required=(star === 5)
+                )
+                span #{star}★
+        div.dd-form-row
+          label(for="comment") Comment
+          textarea#comment(name="comment" rows="4" required placeholder="Tell us about your visit...")
+
+        button.dd-button(type="submit") Post Comment
+        p.dd-form-note.dd-muted
+          | By posting, you agree that your comment may appear on our community wall.
+
+    div.dd-section-visual
+      h2 Recent Comments
+      if comments && comments.length
+        ul.dd-comment-list
+          each c in comments
+            li.dd-comment-card
+              div.dd-comment-header
+                span.dd-comment-name= c.name
+                span.dd-comment-meta #{c.visit_experience} · #{c.rating}★
+              p.dd-comment-body= c.comment
+              span.dd-comment-date Posted #{c.created_at.toLocaleString()}
+      else
+        p.dd-muted
+          | No comments yet. Be the first to sprinkle some love on Downtown Donuts!
